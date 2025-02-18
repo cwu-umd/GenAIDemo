@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GenAI</title>
+</head>
+<body>
+    <h1>GenAI Demo</h1>
+
+    <p>This a Genmini AI Demo.</p>
+
+    <label for="conversation">conversation</label><br>
+    <textarea id="conversation" readonly style="height: 211px; width: 615px;"></textarea>
+    
+
+    
+    <form id="myForm">
+        <label for="prompt">prompt:</label>
+        <br>
+        <textarea id="prompt"></textarea>
+        <br>
+        <input type="submit"></input>
+
+
+    </form>
+
+    <script>
+
+        var conversation = ""
+
+        document.getElementById("myForm").addEventListener("submit", function(event) {
+
+            event.preventDefault()
+
+            conversation += "You: " + document.getElementById("prompt").value + "\n\n"
+            document.getElementById("conversation").value = conversation
+
+
+            const formData = {
+                content : document.getElementById("prompt").value
+            }
+
+            fetch("http://127.0.0.1:5500/submit-form", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify(formData)
+            })
+            .then(response => {
+                console.log("Raw resonse receive", response)
+                return response.json()
+            })
+            .then(data => {
+                conversation += "GenAI: " + data.message + "\n\n"
+                document.getElementById("conversation").value = conversation 
+
+                document.getElementById("prompt").value = ""
+
+                console.log(conversation)
+            })
+
+            .catch(error => console.error("Error here: ", error))
+
+
+        });
+
+    </script>
+
+</body>
+</html>
