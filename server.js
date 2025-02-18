@@ -28,9 +28,9 @@ app.post("/submit-form", async (req, res) => {
     res.json({message: result.response.text()})
 });
 
-app.listen(5500, () => {
-    console.log("I am the server handling request backend on port 5500")
-})
+// app.listen(5500, () => {
+//     console.log("I am the server handling request backend on port 5500")
+// })
 
 
 
