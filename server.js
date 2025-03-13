@@ -6,9 +6,10 @@
 
 import express from 'express'
 import cors from 'cors'
+import 'dotenv/config'
 import {GoogleGenerativeAI} from "@google/generative-ai"
 
-const genAI = new GoogleGenerativeAI(process.env.GEN_AI_KEY)
+const genAI = new GoogleGenerativeAI(process.env.GEN_AI_KEY_H)
 const model = genAI.getGenerativeModel({model: "gemini-2.0-flash"})
 
 const app = express()
@@ -28,13 +29,8 @@ app.post("/submit-form", async (req, res) => {
     res.json({message: result.response.text()})
 });
 
-app.listen(5500, () => {
-    console.log("I am the server handling request backend on port 5500")
+
+app.listen(5501, () => {
+    console.log("I am the server handling request backend on port 5501")
 })
-
-
-
-
-
-
 

@@ -6,9 +6,12 @@
     <title>GenAI</title>
 </head>
 <body>
-    <h1>GenAI Demo</h1>
+    <h1>The Gourmet Apprentice</h1>
 
-    <p>This a Genmini AI Demo.</p>
+    <p>Welcome to <b>The Gourmet Apprentice</b>, a culinary companion powered by cutting-edge AI technology! 
+       This project leverages the Gemini 2.0 API to create a fun, interactive, and engaging way to explore 
+       the art of cooking. Whether you're a seasoned chef or a kitchen novice, this app is designed to inspire 
+       your culinary journey.</p>
 
     <label for="conversation">conversation</label><br>
     <textarea id="conversation" readonly style="height: 211px; width: 615px;"></textarea>
@@ -20,52 +23,12 @@
         <br>
         <textarea id="prompt"></textarea>
         <br>
-        <input type="submit"></input>
+        <input id="smbt" type="submit"></input>
 
 
     </form>
 
-    <script>
-
-        var conversation = ""
-
-        document.getElementById("myForm").addEventListener("submit", function(event) {
-
-            event.preventDefault()
-
-            conversation += "You: " + document.getElementById("prompt").value + "\n\n"
-            document.getElementById("conversation").value = conversation
-
-
-            const formData = {
-                content : document.getElementById("prompt").value
-            }
-
-            // fetch("http://127.0.0.1:5500/submit-form", {
-            fetch("https://genaidemo-js-backend.onrender.com/submit-form", {
-                method: "POST",
-                headers: {"Content-Type": "application/json"},
-                body: JSON.stringify(formData)
-            })
-            .then(response => {
-                console.log("Raw resonse receive", response)
-                return response.json()
-            })
-            .then(data => {
-                conversation += "GenAI: " + data.message + "\n\n"
-                document.getElementById("conversation").value = conversation 
-
-                document.getElementById("prompt").value = ""
-
-                console.log(conversation)
-            })
-
-            .catch(error => console.error("Error here: ", error))
-
-
-        });
-
-    </script>
+    <script src="gourmet.apprentice-1.js"></script>
 
 </body>
 </html>
